@@ -31,6 +31,7 @@ class Node:
             return self  # it is me
 
     def insert(self, value):
+        ''' Returns parent of the new node '''
         n = self.query(value)
         if value < n.S:
             n.setLeftChild(Node(value))
@@ -92,6 +93,24 @@ class Node:
             t = C.L
             C.setLeftChild(self)
             self.setRightChild(t)
+
+    def updateHeight(self):
+        left_h, right_h = 0, 0
+        if self.L is not None:
+            left_h = self.L.h
+        if self.R is not None:
+            right_h = self.R.h
+        self.h = 1 + max(left_h, right_h)
+
+    def balance_factor(self):
+        ''' Get balance factor BF(S) '''
+        left_h, right_h = 0, 0
+        if self.L is not None:
+            left_h = self.L.h
+        if self.R is not None:
+            right_h = self.R.h
+        return right_h - left_h
+
 
 
 class SimpleBinaryTree:
